@@ -26,7 +26,7 @@ const AppRoutes = () => {
         <BrowserRouter>
             <AuthProvider>
                 <Routes>
-                    {/* Public Routes */}
+
                     <Route path="/" element={<Home />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/advanced-search" element={<AdvancedSearch />} />
