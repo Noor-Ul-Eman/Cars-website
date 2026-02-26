@@ -42,7 +42,7 @@ const AppRoutes = () => {
                         }
                     />
 
-                    {/* Seller Routes */}
+
                     <Route
                         path="/seller/dashboard"
                         element={
