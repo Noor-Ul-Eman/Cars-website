@@ -20,12 +20,12 @@
         },
         "categories": {
             "title": "Nach Kategorie suchen",
-            "cars": "Autos",
+            "suv": "SUV",
+            "sedan": "Limousine",
+            "hatchback": "Kompaktwagen",
+            "luxury": "Luxusklasse",
             "electric": "Elektroautos",
-            "motorcycles": "Motorräder",
-            "trucks": "LKW",
-            "motorhomes": "Wohnmobile",
-            "caravans": "Wohnwagen"
+            "convertible": "Cabrio"
         },
         "featured": {
             "title": "Ausgewählte Fahrzeuge",

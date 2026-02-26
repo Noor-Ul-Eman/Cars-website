@@ -21,12 +21,12 @@
         },
         "categories": {
             "title": "Browse by Category",
-            "cars": "Cars",
+            "suv": "SUV",
+            "sedan": "Sedan",
+            "hatchback": "Hatchback",
+            "luxury": "Luxury",
             "electric": "Electric",
-            "motorcycles": "Motorcycles",
-            "trucks": "Trucks",
-            "motorhomes": "Motorhomes",
-            "caravans": "Caravans"
+            "convertible": "Convertible"
         },
         "featured": {
             "title": "Featured Vehicles",
