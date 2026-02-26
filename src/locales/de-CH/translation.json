@@ -1,0 +1,87 @@
+{
+    "navbar": {
+        "home": "Startseite",
+        "buy": "Kaufen",
+        "sell": "Verkaufen",
+        "finance": "Finanzierung",
+        "insurance": "Versicherung",
+        "signIn": "Anmelden",
+        "sellYourCar": "Auto verkaufen"
+    },
+    "home": {
+        "hero": {
+            "title": "Finden Sie Ihr perfektes Auto",
+            "subtitle": "Suchen Sie aus über 1 Million geprüften Fahrzeugen",
+            "search": "Suchen",
+            "make": "Marke",
+            "model": "Modell",
+            "price": "Preis",
+            "year": "Jahr"
+        },
+        "categories": {
+            "title": "Nach Kategorie suchen",
+            "cars": "Autos",
+            "electric": "Elektroautos",
+            "motorcycles": "Motorräder",
+            "trucks": "LKW",
+            "motorhomes": "Wohnmobile",
+            "caravans": "Wohnwagen"
+        },
+        "featured": {
+            "title": "Ausgewählte Fahrzeuge",
+            "subtitle": "Handverlesene Auswahl an Qualitätsautos"
+        }
+    },
+    "login": {
+        "title": "Willkommen zurück",
+        "subtitle": "Melden Sie sich in Ihrem Konto an",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "rememberMe": "Angemeldet bleiben",
+        "forgotPassword": "Passwort vergessen?",
+        "signIn": "Anmelden",
+        "noAccount": "Noch kein Konto?",
+        "signUp": "Registrieren",
+        "placeholders": {
+            "email": "Geben Sie Ihre E-Mail ein",
+            "password": "Geben Sie Ihr Passwort ein"
+        }
+    },
+    "search": {
+        "title": "Suchergebnisse",
+        "vehiclesFound": "{{count}} Fahrzeuge gefunden",
+        "filters": {
+            "title": "Filter",
+            "reset": "Zurücksetzen",
+            "make": "Marke",
+            "priceRange": "Preisspanne",
+            "yearFrom": "Jahr ab",
+            "fuel": "Kraftstoffart",
+            "apply": "Filter anwenden"
+        },
+        "loading": "Suche beste Treffer...",
+        "contactSeller": "Verkäufer kontaktieren",
+        "park": "Parken",
+        "saveSearch": "Suche speichern",
+        "sortBy": "Sortieren nach",
+        "pagination": {
+            "previous": "Zurück",
+            "next": "Weiter"
+        }
+    },
+    "dashboard": {
+        "menu": {
+            "dashboard": "Übersicht",
+            "browseCars": "Autos durchsuchen",
+            "myOrders": "Meine Bestellungen",
+            "favorites": "Favoriten",
+            "myProducts": "Meine Produkte",
+            "orders": "Bestellungen",
+            "analytics": "Analysen",
+            "users": "Benutzer",
+            "sellers": "Verkäufer",
+            "products": "Produkte",
+            "settings": "Einstellungen"
+        }
+    }
+}

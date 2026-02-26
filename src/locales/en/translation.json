@@ -1,0 +1,88 @@
+{
+    "navbar": {
+        "home": "Home",
+        "buy": "Search",
+        "sell": "Sell",
+        "finance": "Finance",
+        "insurance": "Insurance",
+        "signIn": "Sign In",
+        "sellYourCar": "Sell Your Car",
+        "inform": "Inform"
+    },
+    "home": {
+        "hero": {
+            "title": "Find your perfect drive",
+            "subtitle": "Search from over 1 million verified cars",
+            "search": "Search",
+            "make": "Make",
+            "model": "Model",
+            "price": "Price",
+            "year": "Year"
+        },
+        "categories": {
+            "title": "Browse by Category",
+            "cars": "Cars",
+            "electric": "Electric",
+            "motorcycles": "Motorcycles",
+            "trucks": "Trucks",
+            "motorhomes": "Motorhomes",
+            "caravans": "Caravans"
+        },
+        "featured": {
+            "title": "Featured Vehicles",
+            "subtitle": "Hand-picked selection of quality cars"
+        }
+    },
+    "login": {
+        "title": "Welcome Back",
+        "subtitle": "Sign in to your account",
+        "email": "Email",
+        "password": "Password",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password?",
+        "signIn": "Sign In",
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign up",
+        "placeholders": {
+            "email": "Enter your email",
+            "password": "Enter your password"
+        }
+    },
+    "search": {
+        "title": "Search Results",
+        "vehiclesFound": "{{count}} vehicles found",
+        "filters": {
+            "title": "Filters",
+            "reset": "Reset",
+            "make": "Make",
+            "priceRange": "Price Range",
+            "yearFrom": "Year From",
+            "fuel": "Fuel Type",
+            "apply": "Apply Filters"
+        },
+        "loading": "Finding best matches...",
+        "contactSeller": "Contact Seller",
+        "park": "Park",
+        "saveSearch": "Save Search",
+        "sortBy": "Sort By",
+        "pagination": {
+            "previous": "Previous",
+            "next": "Next"
+        }
+    },
+    "dashboard": {
+        "menu": {
+            "dashboard": "Dashboard",
+            "browseCars": "Browse Cars",
+            "myOrders": "My Orders",
+            "favorites": "Favorites",
+            "myProducts": "My Products",
+            "orders": "Orders",
+            "analytics": "Analytics",
+            "users": "Users",
+            "sellers": "Sellers",
+            "products": "Products",
+            "settings": "Settings"
+        }
+    }
+}
