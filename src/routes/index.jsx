@@ -32,7 +32,7 @@ const AppRoutes = () => {
                     <Route path="/advanced-search" element={<AdvancedSearch />} />
                     <Route path="/login" element={<Login />} />
 
-                    {/* User Routes */}
+
                     <Route
                         path="/user/dashboard"
                         element={
