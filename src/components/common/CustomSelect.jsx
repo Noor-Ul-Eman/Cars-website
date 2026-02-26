@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 
-const CustomSelect = ({ label, value, options, onChange, placeholder = "Any", disabled = false, icon }) => {
+const CustomSelect = ({ label, value, options, onChange, placeholder = "Any", disabled = false, icon, nestedOptions = {}, optionIcons = {} }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [expandedOption, setExpandedOption] = useState(null);
     const dropdownRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
+                setExpandedOption(null);
             }
         };
 
@@ -18,6 +20,11 @@ const CustomSelect = ({ label, value, options, onChange, placeholder = "Any", di
     const handleSelect = (option) => {
         onChange({ target: { value: option } });
         setIsOpen(false);
+        setExpandedOption(null);
+    };
+
+    const toggleExpand = (option) => {
+        setExpandedOption(expandedOption === option ? null : option);
     };
 
     return (
@@ -40,7 +47,7 @@ const CustomSelect = ({ label, value, options, onChange, placeholder = "Any", di
                 </button>
 
                 {isOpen && (
-                    <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                    <div className="absolute z-[9999] w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
                         <div className="py-1">
                             <div
                                 onClick={() => handleSelect('Any')}
@@ -48,15 +55,49 @@ const CustomSelect = ({ label, value, options, onChange, placeholder = "Any", di
                             >
                                 Any
                             </div>
-                            {options.map((option, index) => (
-                                <div
-                                    key={index}
-                                    onClick={() => handleSelect(option)}
-                                    className={`px-4 py-2 text-sm md:text-base cursor-pointer transition-colors ${value === option ? 'bg-primary-50 text-primary-700 font-semibold' : 'text-gray-700 hover:bg-primary-600 hover:text-white'}`}
-                                >
-                                    {option}
-                                </div>
-                            ))}
+                            {options.map((option, index) => {
+                                const hasNested = nestedOptions[option] && nestedOptions[option].length > 0;
+                                const isExpanded = expandedOption === option;
+                                const optionIcon = optionIcons[option];
+                                
+                                return (
+                                    <div key={index}>
+                                        <div
+                                            onClick={() => hasNested ? toggleExpand(option) : handleSelect(option)}
+                                            className={`px-4 py-2 text-sm md:text-base cursor-pointer transition-colors flex items-center justify-between ${value === option ? 'bg-primary-50 text-primary-700 font-semibold' : 'text-gray-700 hover:bg-primary-600 hover:text-white'}`}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                {optionIcon && (
+                                                    <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={optionIcon} />
+                                                    </svg>
+                                                )}
+                                                <span>{option}</span>
+                                            </div>
+                                            {hasNested && (
+                                                <svg className={`w-4 h-4 ml-2 transition-transform ${isExpanded ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            )}
+                                        </div>
+                                        
+                                        {/* Nested options - shown below when expanded */}
+                                        {hasNested && isExpanded && (
+                                            <div className="bg-gray-50">
+                                                {nestedOptions[option].map((nestedOpt, nestedIdx) => (
+                                                    <div
+                                                        key={nestedIdx}
+                                                        onClick={() => handleSelect(nestedOpt)}
+                                                        className="pl-8 pr-4 py-2 text-sm cursor-pointer transition-colors text-gray-700 hover:bg-primary-600 hover:text-white"
+                                                    >
+                                                        {nestedOpt}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 )}

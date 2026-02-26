@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Button from '../components/common/Button';
 import CustomSelect from '../components/common/CustomSelect';
+import BrandSelector from '../components/common/BrandSelector';
 
 /**
  * Home Page - Car Marketplace Landing Page
@@ -22,14 +23,43 @@ const Home = () => {
     const [typingSpeed, setTypingSpeed] = useState(150);
 
     // Filter State
+    const [activeVehicleType, setActiveVehicleType] = useState('car'); // car, motorhome, commercial, truck, trailer, motorcycle
     const [selectedMake, setSelectedMake] = useState('Any');
     const [selectedModel, setSelectedModel] = useState('Any');
     const [selectedYear, setSelectedYear] = useState('Any');
     const [selectedMileage, setSelectedMileage] = useState('Any');
+    const [selectedPriceType, setSelectedPriceType] = useState('Any'); // Purchase price or Leasing rate
     const [selectedPrice, setSelectedPrice] = useState('Any');
     const [selectedCity, setSelectedCity] = useState('Any');
-    const [selectedPayment, setSelectedPayment] = useState('Buy'); // Default to Buy
-    const [isElectric, setIsElectric] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('Any');
+    const [selectedCondition, setSelectedCondition] = useState('Any');
+    const [selectedMfkWarranty, setSelectedMfkWarranty] = useState('Any');
+    const [selectedAccidentVehicle, setSelectedAccidentVehicle] = useState('Any');
+    const [selectedSellerType, setSelectedSellerType] = useState('Any');
+    const [selectedStructureType, setSelectedStructureType] = useState('Any');
+
+
+    // Reset filters when vehicle type changes
+    const handleVehicleTypeChange = (type) => {
+        setActiveVehicleType(type);
+        // Reset all filters
+        setSelectedMake('Any');
+        setSelectedModel('Any');
+        setSelectedYear('Any');
+        setSelectedMileage('Any');
+        setSelectedPriceType('Any');
+        setSelectedPrice('Any');
+        setSelectedCity('Any');
+        setSelectedCategory('Any');
+        setSelectedCondition('Any');
+        setSelectedMfkWarranty('Any');
+        setSelectedAccidentVehicle('Any');
+        setSelectedSellerType('Any');
+        setSelectedStructureType('Any');
+    };
+
+
+
 
     const makes = [
         "Abarth", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Cadillac", "Chevrolet", "Chrysler",
@@ -105,10 +135,16 @@ const Home = () => {
         setSelectedModel('Any');
         setSelectedYear('Any');
         setSelectedMileage('Any');
+        setSelectedPriceType('Any');
         setSelectedPrice('Any');
         setSelectedCity('Any');
-        setSelectedPayment('Buy');
-        setIsElectric(false);
+        setSelectedCategory('Any');
+        setSelectedCondition('Any');
+        setSelectedMfkWarranty('Any');
+        setSelectedAccidentVehicle('Any');
+        setSelectedSellerType('Any');
+        setSelectedStructureType('Any');
+
         setPlaceholder('');
         setLoopNum(0);
         setIsDeleting(false);
@@ -143,12 +179,12 @@ const Home = () => {
     }, [placeholder, isDeleting, isFocused, loopNum, typingSpeed]);
 
     const vehicleCategories = [
-        { name: t('home.categories.cars'), icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', count: '2.5M+' },
-        { name: t('home.categories.electric'), icon: 'M13 10V3L4 14h7v7l9-11h-7z', count: '150K+' },
-        { name: t('home.categories.motorcycles'), icon: 'M12 18.5A2.5 2.5 0 019.5 16 2.5 2.5 0 0112 13.5a2.5 2.5 0 012.5 2.5 2.5 2.5 0 01-2.5 2.5M4.5 19.5a3 3 0 100-6 3 3 0 000 6m15 0a3 3 0 100-6 3 3 0 000 6M12 3l-1.5 5h3L12 3z', count: '80K+' },
-        { name: t('home.categories.trucks'), icon: 'M8 17a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4zM3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z', count: '45K+' },
-        { name: t('home.categories.motorhomes'), icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6', count: '12K+' },
-        { name: t('home.categories.caravans'), icon: 'M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z', count: '8K+' },
+        { name: t('home.categories.suv'), image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=200&auto=format&fit=crop', count: '125K+' },
+        { name: t('home.categories.sedan'), image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=200&auto=format&fit=crop', count: '85K+' },
+        { name: t('home.categories.hatchback'), image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=200&auto=format&fit=crop', count: '65K+' },
+        { name: t('home.categories.luxury'), image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=200&auto=format&fit=crop', count: '45K+' },
+        { name: t('home.categories.electric'), image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=200&auto=format&fit=crop', count: '35K+' },
+        { name: t('home.categories.convertible'), image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=200&auto=format&fit=crop', count: '12K+' },
     ];
 
     const featuredCars = [
@@ -163,7 +199,7 @@ const Home = () => {
             <Navbar />
 
             {/* Hero Section */}
-            <div className="relative h-[600px] w-full">
+            <div className="relative h-[550px] w-full">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <img
@@ -175,24 +211,24 @@ const Home = () => {
                 </div>
 
                 {/* Hero Content */}
-                <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center text-white pb-32">
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center text-white pb-20">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
                         Find your <span className="text-primary-400">dream car</span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mb-8">
+                    <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-6">
                         Search through thousands of verified vehicles from trusted dealers.
                     </p>
-                    <button className="w-fit bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-full font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.5)]">
+                    <button className="w-fit bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-[0_0_20px_rgba(37,99,235,0.5)] cursor-pointer">
                         Start Browsing
                     </button>
                 </div>
 
-                {/* Simple Search Box - Overlapping bottom edge */}
-                <div className="font-sans absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-full max-w-5xl px-4 z-20">
-                    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100 h-64 flex flex-col justify-center">
+                {/* Simple Search Box - Floating half-in half-out */}
+                <div className="font-sans absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-full max-w-6xl px-4 z-20">
+                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100 h-auto flex flex-col justify-center">
 
-                        <div className="text-center mb-10">
-                            <h2 className="text-2xl md:text-4xl font-medium text-gray-900 tracking-tight leading-tight">
+                        <div className="text-center mb-6">
+                            <h2 className="text-xl md:text-2xl font-medium text-gray-900 tracking-tight leading-tight">
                                 Millions of cars. One simple search.
                             </h2>
                         </div>
@@ -223,8 +259,8 @@ const Home = () => {
                             </button>
                         </div>
 
-                        <div className="mt-8 flex justify-center items-center gap-3 text-sm text-gray-600">
-                            <span className="bg-[#E9ECEF] px-2.5 py-0.5 rounded font-bold text-gray-700 text-[10px] border border-gray-200 uppercase">
+                        <div className="mt-4 flex justify-center items-center gap-3 text-sm text-gray-600">
+                            <span className="bg-[#E9ECEF] px-2 py-0.5 rounded font-bold text-gray-700 text-[10px] border border-gray-200 uppercase">
                                 Beta
                             </span>
                             <span className="font-normal text-gray-600">AI-Search. Cars only.</span>
@@ -234,180 +270,993 @@ const Home = () => {
 
             </div>
 
-            {/* Detailed Filter Section - Below the hero overlap */}
-            <div className="pt-48 pb-24 bg-[#F3F5F9]">
-                <div className="max-w-5xl mx-auto px-4">
-                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-gray-100 h-auto md:h-72">
+            {/* Detailed Filter Section */}
+            <div className="pt-32 pb-16 bg-[#F3F5F9]">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row border border-gray-100 h-auto overflow-visible">
                         {/* Sidebar - Vehicle Types */}
-                        <div className="w-full md:w-20 bg-[#F8F9FA] flex md:flex-col border-b md:border-b-0 md:border-r border-gray-100">
+                        <div className="w-full md:w-14 bg-[#F8F9FA] flex md:flex-col border-b md:border-b-0 md:border-r border-gray-100 rounded-l-2xl overflow-x-auto md:overflow-visible">
                             {[
-                                { id: 'car', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', active: true },
-                                { id: 'bike', icon: 'M12 18.5A2.5 2.5 0 019.5 16 2.5 2.5 0 0112 13.5a2.5 2.5 0 012.5 2.5 2.5 2.5 0 01-2.5 2.5M4.5 19.5a3 3 0 100-6 3 3 0 000 6m15 0a3 3 0 100-6 3 3 0 000 6M12 3l-1.5 5h3L12 3z' },
-                                { id: 'ebike', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
-                                { id: 'motorhome', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-                                { id: 'truck', icon: 'M8 17a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4zM3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z' },
+                                { id: 'car', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', label: 'Passenger cars' },
+                                { id: 'motorhome', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6', label: 'Motorhome' },
+                                { id: 'commercial', icon: 'M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z M3 5h18v10H3V5z M3 5l2-2h14l2 2', label: 'Commercial Vehicle' },
+                                { id: 'truck', icon: 'M8 17a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4zM3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4z', label: 'Trucks' },
+                                { id: 'trailer', icon: 'M3 12h18M3 12a2 2 0 012-2h14a2 2 0 012 2M3 12v6a2 2 0 002 2h14a2 2 0 002-2v-6M9 18a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z', label: 'Trailers' },
+                                { id: 'motorcycle', icon: 'M12 18.5A2.5 2.5 0 019.5 16 2.5 2.5 0 0112 13.5a2.5 2.5 0 012.5 2.5 2.5 2.5 0 01-2.5 2.5M4.5 19.5a3 3 0 100-6 3 3 0 000 6m15 0a3 3 0 100-6 3 3 0 000 6M12 3l-1.5 5h3L12 3z', label: 'Motorcycle' },
                             ].map((item) => (
                                 <button
                                     key={item.id}
-                                    className={`flex-1 md:flex-none h-14 md:h-1/5 flex items-center justify-center transition-all duration-200 border-b border-gray-100 last:border-0 cursor-pointer ${item.active ? 'bg-white shadow-[inset_4px_0_0_0_#0284c7]' : 'hover:bg-blue-50'}`}
+                                    onClick={() => handleVehicleTypeChange(item.id)}
+                                    className={`flex-shrink-0 md:flex-none w-14 md:w-full h-11 md:h-auto md:aspect-square flex items-center justify-center transition-all duration-200 border-r md:border-r-0 md:border-b border-gray-100 last:border-0 cursor-pointer ${activeVehicleType === item.id ? 'bg-white shadow-[inset_4px_0_0_0_#0284c7] md:shadow-[inset_0_4px_0_0_#0284c7]' : 'hover:bg-blue-50'}`}
+                                    title={item.label}
                                 >
-                                    <svg className={`w-8 h-8 transition-colors ${item.active ? 'text-primary-600' : 'text-gray-400 group-hover:text-primary-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className={`w-5 h-5 transition-colors ${activeVehicleType === item.id ? 'text-primary-600' : 'text-gray-400 hover:text-primary-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d={item.icon} />
                                     </svg>
                                 </button>
                             ))}
                         </div>
 
-                        {/* Filter Content */}
-                        <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                                {/* Make Field */}
-                                <CustomSelect
-                                    label="Make"
-                                    value={selectedMake}
-                                    options={makes}
-                                    onChange={(e) => {
-                                        setSelectedMake(e.target.value);
-                                        setSelectedModel('Any');
-                                    }}
-                                    placeholder="Any"
-                                />
-
-                                {/* Model Field */}
-                                <CustomSelect
-                                    label="Model"
-                                    value={selectedModel}
-                                    options={selectedMake !== 'Any' ? (modelsByMake[selectedMake] || []) : []}
-                                    onChange={(e) => setSelectedModel(e.target.value)}
-                                    placeholder="Any"
-                                    disabled={selectedMake === 'Any'}
-                                />
-
-                                {/* 1st Registration Field */}
-                                <CustomSelect
-                                    label="1st Registration from"
-                                    value={selectedYear}
-                                    options={registrationYears.filter(y => y !== 'Any')}
-                                    onChange={(e) => setSelectedYear(e.target.value)}
-                                    placeholder="Any"
-                                />
-
-                                {/* Mileage Field */}
-                                <CustomSelect
-                                    label="Mileage up to"
-                                    value={selectedMileage}
-                                    options={mileageOptions}
-                                    onChange={(e) => setSelectedMileage(e.target.value)}
-                                    placeholder="Any"
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-end mt-4">
-                                <div className="space-y-1.5">
-                                    <label className="text-sm font-bold text-gray-800">Payment type</label>
-                                    <div className="flex border-2 border-primary-600 rounded-lg overflow-hidden h-11 bg-white">
-                                        <button
-                                            onClick={() => setSelectedPayment('Buy')}
-                                            className={`flex-1 font-bold text-sm md:text-base transition-colors cursor-pointer ${selectedPayment === 'Buy' ? 'bg-primary-600 text-white' : 'text-primary-700 hover:bg-gray-50'}`}
-                                        >
-                                            Buy
-                                        </button>
-                                        <button
-                                            onClick={() => setSelectedPayment('Lease')}
-                                            className={`flex-1 font-normal text-sm md:text-base border-l border-gray-200 transition-colors cursor-pointer ${selectedPayment === 'Lease' ? 'bg-primary-600 text-white' : 'text-gray-500 hover:bg-gray-50'}`}
-                                        >
-                                            Leasing
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <CustomSelect
-                                    label="Price up to"
-                                    value={selectedPrice}
-                                    options={priceOptions.map(p => `€ ${p}`)}
-                                    onChange={(e) => setSelectedPrice(e.target.value.replace('€ ', ''))}
-                                    placeholder="Any"
-                                />
-
-                                <CustomSelect
-                                    label="City"
-                                    value={selectedCity}
-                                    options={cities}
-                                    onChange={(e) => setSelectedCity(e.target.value)}
-                                    placeholder="Any"
-                                />
-
-                                <button
-                                    onClick={handleSearch}
-                                    className="h-11 w-full bg-primary-600 hover:bg-primary-700 text-white font-bold text-base rounded-lg flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all cursor-pointer"
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                    1,401,487 Offers
-                                </button>
-                            </div>
-
-                            <div className="flex items-center justify-between mt-6">
-                                <label className="flex items-center gap-3 cursor-pointer group w-fit">
-                                    <div className="relative">
-                                        <input
-                                            type="checkbox"
-                                            className="sr-only peer"
-                                            checked={isElectric}
-                                            onChange={() => setIsElectric(!isElectric)}
+                        {/* Filter Content - Changes based on active vehicle type */}
+                        <div className="flex-1 p-6 md:p-8">
+                            {/* Car Filters */}
+                            {activeVehicleType === 'car' && (
+                                <>
+                                    {/* Top Row - 4 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <BrandSelector
+                                            label="Make and Model"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            placeholder="Any"
                                         />
-                                        <div className={`w-5 h-5 bg-white rounded border transition-all flex items-center justify-center ${isElectric ? 'border-primary-600' : 'border-gray-300'}`}>
-                                            <svg className={`w-3.5 h-3.5 text-primary-600 transition-opacity ${isElectric ? 'opacity-100' : 'opacity-0'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                            </svg>
+
+                                        <CustomSelect
+                                            label="Price"
+                                            value={selectedPriceType}
+                                            options={['Purchase price', 'Leasing rate']}
+                                            nestedOptions={{
+                                                'Purchase price': priceOptions.map(price => `CHF ${price}`),
+                                                'Leasing rate': ['CHF 100/month', 'CHF 200/month', 'CHF 300/month', 'CHF 400/month', 'CHF 500/month', 'CHF 600/month', 'CHF 700/month', 'CHF 800/month', 'CHF 900/month', 'CHF 1,000/month', 'CHF 1,500/month', 'CHF 2,000/month', 'CHF 2,500/month', 'CHF 3,000/month']
+                                            }}
+                                            onChange={(e) => {
+                                                setSelectedPriceType(e.target.value);
+                                                setSelectedPrice(e.target.value);
+                                            }}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Year"
+                                            value={selectedYear}
+                                            options={Array.from({ length: 2026 - 1900 + 1 }, (_, i) => (2026 - i).toString())}
+                                            onChange={(e) => setSelectedYear(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Mileage"
+                                            value={selectedMileage}
+                                            options={[
+                                                '5,000 km', '10,000 km', '20,000 km', '30,000 km', '40,000 km', '50,000 km',
+                                                '60,000 km', '70,000 km', '80,000 km', '90,000 km', '100,000 km', '125,000 km',
+                                                '150,000 km', '175,000 km', '200,000 km', '250,000 km', '300,000 km', '400,000 km'
+                                            ]}
+                                            onChange={(e) => setSelectedMileage(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Bottom Row - 3 Dropdowns + Search Button */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Condition"
+                                            value={selectedCondition}
+                                            options={[
+                                                'New (39,641)',
+                                                'Used (115,558)',
+                                                'Classic cars (1,631)'
+                                            ]}
+                                            nestedOptions={{
+                                                'New (39,641)': [
+                                                    'New vehicle (26,413)',
+                                                    'Demonstration model (10,207)',
+                                                    'New vehicle with one-day registration (3,021)'
+                                                ]
+                                            }}
+                                            onChange={(e) => setSelectedCondition(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="MFK & Warranty"
+                                            value={selectedMfkWarranty}
+                                            options={[
+                                                'From MFK (113,219)',
+                                                'With warranty (107,977)'
+                                            ]}
+                                            onChange={(e) => setSelectedMfkWarranty(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Accident vehicle"
+                                            value={selectedAccidentVehicle}
+                                            options={[
+                                                'Accident vehicle (779)',
+                                                'No accident vehicle (156,049)'
+                                            ]}
+                                            onChange={(e) => setSelectedAccidentVehicle(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <div className="flex items-end">
+                                            <button
+                                                onClick={handleSearch}
+                                                className="w-full h-11 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                </svg>
+                                                67,953 Offers
+                                            </button>
                                         </div>
                                     </div>
-                                    <span className="text-gray-700 font-medium text-sm md:text-base transition-colors">Only Electric Cars <span className="inline-flex items-center justify-center w-5 h-5 bg-primary-600 text-white rounded-md text-[10px] ml-1">⚡</span></span>
-                                </label>
 
-                                <div className="flex items-center gap-8">
-                                    <button
-                                        onClick={handleReset}
-                                        className="flex items-center gap-1.5 text-base font-medium text-gray-700 hover:text-primary-600 transition-colors cursor-pointer group"
-                                    >
-                                        <svg className="w-5 h-5 text-gray-500 group-hover:text-primary-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                                        Reset
-                                    </button>
-                                    <button
-                                        onClick={() => navigate('/advanced-search')}
-                                        className="flex items-center gap-1.5 text-base font-medium text-gray-700 hover:text-primary-600 transition-colors cursor-pointer group"
-                                    >
-                                        <svg className="w-5 h-5 text-gray-500 group-hover:text-primary-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                                        </svg>
-                                        More filters
-                                    </button>
-                                </div>
-                            </div>
+                                    {/* Third Row - 2 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Seller Type"
+                                            value={selectedSellerType}
+                                            options={[
+                                                'Private',
+                                                'Dealers'
+                                            ]}
+                                            onChange={(e) => setSelectedSellerType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Type of structure"
+                                            value={selectedStructureType}
+                                            options={[
+                                                'Estate (21,408)',
+                                                'SUV / Off-Road Vehicle (59,529)',
+                                                'Limousine (29,461)',
+                                                'Cabriolet (8,795)',
+                                                'Coupé (8,451)',
+                                                'Small car (16,945)',
+                                                'Pick-up (1,391)',
+                                                'Compact van / minivan (9,237)',
+                                                'Bus (1,581)'
+                                            ]}
+                                            optionIcons={{
+                                                'Estate (21,408)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 11l1-2h16l1 2v5H3v-5z',
+                                                'SUV / Off-Road Vehicle (59,529)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 10l2-3h16l2 3v6H2v-6z',
+                                                'Limousine (29,461)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 12l2-3h16l2 3v4H2v-4z',
+                                                'Cabriolet (8,795)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM5 13l1-2h12l1 2v3H5v-3z',
+                                                'Coupé (8,451)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM6 13l2-3h8l2 3v3H6v-3z',
+                                                'Small car (16,945)': 'M6 18a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2zM7 14l1-2h8l1 2v2H7v-2z',
+                                                'Pick-up (1,391)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 12h8v4H3v-4zm9 0h9v4h-9v-4z',
+                                                'Compact van / minivan (9,237)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 10h18v6H3v-6zM4 10V8h16v2',
+                                                'Bus (1,581)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 8h18v8H3V8zM6 8v8m6-8v8m6-8v8'
+                                            }}
+                                            onChange={(e) => setSelectedStructureType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Reset and More Filters - Right Aligned */}
+                                    <div className="flex items-center justify-end gap-4">
+                                        <button
+                                            onClick={handleReset}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Reset
+                                        </button>
+                                        <button
+                                            onClick={() => navigate('/advanced-search')}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                            </svg>
+                                            More filters
+                                        </button>
+                                    </div>
+
+                                </>
+                            )}
+
+                            {/* Trailer Filters */}
+                            {activeVehicleType === 'trailer' && (
+                                <>
+                                    {/* Top Row - 4 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <BrandSelector
+                                            label="Make and Model"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Price"
+                                            value={selectedPriceType}
+                                            options={['Purchase price', 'Leasing rate']}
+                                            nestedOptions={{
+                                                'Purchase price': priceOptions.map(price => `CHF ${price}`),
+                                                'Leasing rate': ['CHF 100/month', 'CHF 200/month', 'CHF 300/month', 'CHF 400/month', 'CHF 500/month', 'CHF 600/month', 'CHF 700/month', 'CHF 800/month', 'CHF 900/month', 'CHF 1,000/month', 'CHF 1,500/month', 'CHF 2,000/month', 'CHF 2,500/month', 'CHF 3,000/month']
+                                            }}
+                                            onChange={(e) => {
+                                                setSelectedPriceType(e.target.value);
+                                                setSelectedPrice(e.target.value);
+                                            }}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Year"
+                                            value={selectedYear}
+                                            options={Array.from({ length: 2026 - 1900 + 1 }, (_, i) => (2026 - i).toString())}
+                                            onChange={(e) => setSelectedYear(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Mileage"
+                                            value={selectedMileage}
+                                            options={[
+                                                '5,000 km', '10,000 km', '20,000 km', '30,000 km', '40,000 km', '50,000 km',
+                                                '60,000 km', '70,000 km', '80,000 km', '90,000 km', '100,000 km', '125,000 km',
+                                                '150,000 km', '175,000 km', '200,000 km', '250,000 km', '300,000 km', '400,000 km'
+                                            ]}
+                                            onChange={(e) => setSelectedMileage(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Bottom Row - 3 Dropdowns + Search Button */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Condition"
+                                            value={selectedCondition}
+                                            options={[
+                                                'New (39,641)',
+                                                'Used (115,558)',
+                                                'Classic cars (1,631)'
+                                            ]}
+                                            nestedOptions={{
+                                                'New (39,641)': [
+                                                    'New vehicle (26,413)',
+                                                    'Demonstration model (10,207)',
+                                                    'New vehicle with one-day registration (3,021)'
+                                                ]
+                                            }}
+                                            onChange={(e) => setSelectedCondition(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="MFK & Warranty"
+                                            value={selectedMfkWarranty}
+                                            options={[
+                                                'From MFK (113,219)',
+                                                'With warranty (107,977)'
+                                            ]}
+                                            onChange={(e) => setSelectedMfkWarranty(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Accident vehicle"
+                                            value={selectedAccidentVehicle}
+                                            options={[
+                                                'Accident vehicle (779)',
+                                                'No accident vehicle (156,049)'
+                                            ]}
+                                            onChange={(e) => setSelectedAccidentVehicle(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <div className="flex items-end">
+                                            <button
+                                                onClick={handleSearch}
+                                                className="w-full h-11 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                </svg>
+                                                67,953 Offers
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Third Row - 2 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Seller Type"
+                                            value={selectedSellerType}
+                                            options={[
+                                                'Private',
+                                                'Dealers'
+                                            ]}
+                                            onChange={(e) => setSelectedSellerType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Type of structure"
+                                            value={selectedStructureType}
+                                            options={[
+                                                'Estate (21,408)',
+                                                'SUV / Off-Road Vehicle (59,529)',
+                                                'Limousine (29,461)',
+                                                'Cabriolet (8,795)',
+                                                'Coupé (8,451)',
+                                                'Small car (16,945)',
+                                                'Pick-up (1,391)',
+                                                'Compact van / minivan (9,237)',
+                                                'Bus (1,581)'
+                                            ]}
+                                            optionIcons={{
+                                                'Estate (21,408)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 11l1-2h16l1 2v5H3v-5z',
+                                                'SUV / Off-Road Vehicle (59,529)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 10l2-3h16l2 3v6H2v-6z',
+                                                'Limousine (29,461)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 12l2-3h16l2 3v4H2v-4z',
+                                                'Cabriolet (8,795)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM5 13l1-2h12l1 2v3H5v-3z',
+                                                'Coupé (8,451)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM6 13l2-3h8l2 3v3H6v-3z',
+                                                'Small car (16,945)': 'M6 18a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2zM7 14l1-2h8l1 2v2H7v-2z',
+                                                'Pick-up (1,391)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 12h8v4H3v-4zm9 0h9v4h-9v-4z',
+                                                'Compact van / minivan (9,237)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 10h18v6H3v-6zM4 10V8h16v2',
+                                                'Bus (1,581)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 8h18v8H3V8zM6 8v8m6-8v8m6-8v8'
+                                            }}
+                                            onChange={(e) => setSelectedStructureType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Reset and More Filters - Right Aligned */}
+                                    <div className="flex items-center justify-end gap-4">
+                                        <button
+                                            onClick={handleReset}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Reset
+                                        </button>
+                                        <button
+                                            onClick={() => navigate('/advanced-search')}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                            </svg>
+                                            More filters
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Commercial Vehicle Filters */}
+                            {activeVehicleType === 'commercial' && (
+                                <>
+                                    {/* Same filters as bike */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <BrandSelector
+                                            label="Make and Model"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Price"
+                                            value={selectedPriceType}
+                                            options={['Purchase price', 'Leasing rate']}
+                                            nestedOptions={{
+                                                'Purchase price': priceOptions.map(price => `CHF ${price}`),
+                                                'Leasing rate': ['CHF 100/month', 'CHF 200/month', 'CHF 300/month', 'CHF 400/month', 'CHF 500/month']
+                                            }}
+                                            onChange={(e) => {
+                                                setSelectedPriceType(e.target.value);
+                                                setSelectedPrice(e.target.value);
+                                            }}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Year"
+                                            value={selectedYear}
+                                            options={Array.from({ length: 2026 - 1900 + 1 }, (_, i) => (2026 - i).toString())}
+                                            onChange={(e) => setSelectedYear(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Mileage"
+                                            value={selectedMileage}
+                                            options={['5,000 km', '10,000 km', '20,000 km', '30,000 km', '40,000 km', '50,000 km']}
+                                            onChange={(e) => setSelectedMileage(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Condition"
+                                            value={selectedCondition}
+                                            options={['New (39,641)', 'Used (115,558)']}
+                                            onChange={(e) => setSelectedCondition(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Seller Type"
+                                            value={selectedSellerType}
+                                            options={['Private', 'Dealers']}
+                                            onChange={(e) => setSelectedSellerType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <div className="col-span-2 flex items-end">
+                                            <button
+                                                onClick={handleSearch}
+                                                className="w-full h-11 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                </svg>
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Motorhome Filters */}
+                            {activeVehicleType === 'motorhome' && (
+                                <>
+                                    {/* Top Row - 4 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <BrandSelector
+                                            label="Make and Model"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            placeholder="Any"
+                                            vehicleType="motorhome"
+                                        />
+
+                                        <CustomSelect
+                                            label="Price"
+                                            value={selectedPriceType}
+                                            options={['Purchase price', 'Leasing rate']}
+                                            nestedOptions={{
+                                                'Purchase price': priceOptions.map(price => `CHF ${price}`),
+                                                'Leasing rate': ['CHF 100/month', 'CHF 200/month', 'CHF 300/month', 'CHF 400/month', 'CHF 500/month', 'CHF 600/month', 'CHF 700/month', 'CHF 800/month', 'CHF 900/month', 'CHF 1,000/month', 'CHF 1,500/month', 'CHF 2,000/month', 'CHF 2,500/month', 'CHF 3,000/month']
+                                            }}
+                                            onChange={(e) => {
+                                                setSelectedPriceType(e.target.value);
+                                                setSelectedPrice(e.target.value);
+                                            }}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Year"
+                                            value={selectedYear}
+                                            options={Array.from({ length: 2026 - 1900 + 1 }, (_, i) => (2026 - i).toString())}
+                                            onChange={(e) => setSelectedYear(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Mileage"
+                                            value={selectedMileage}
+                                            options={[
+                                                '5,000 km', '10,000 km', '20,000 km', '30,000 km', '40,000 km', '50,000 km',
+                                                '60,000 km', '70,000 km', '80,000 km', '90,000 km', '100,000 km', '125,000 km',
+                                                '150,000 km', '175,000 km', '200,000 km', '250,000 km', '300,000 km', '400,000 km'
+                                            ]}
+                                            onChange={(e) => setSelectedMileage(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Bottom Row - 3 Dropdowns + Search Button */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Condition"
+                                            value={selectedCondition}
+                                            options={[
+                                                'New (39,641)',
+                                                'Used (115,558)',
+                                                'Classic cars (1,631)'
+                                            ]}
+                                            nestedOptions={{
+                                                'New (39,641)': [
+                                                    'New vehicle (26,413)',
+                                                    'Demonstration model (10,207)',
+                                                    'New vehicle with one-day registration (3,021)'
+                                                ]
+                                            }}
+                                            onChange={(e) => setSelectedCondition(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="MFK & Warranty"
+                                            value={selectedMfkWarranty}
+                                            options={[
+                                                'From MFK (113,219)',
+                                                'With warranty (107,977)'
+                                            ]}
+                                            onChange={(e) => setSelectedMfkWarranty(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Accident vehicle"
+                                            value={selectedAccidentVehicle}
+                                            options={[
+                                                'Accident vehicle (779)',
+                                                'No accident vehicle (156,049)'
+                                            ]}
+                                            onChange={(e) => setSelectedAccidentVehicle(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <div className="flex items-end">
+                                            <button
+                                                onClick={handleSearch}
+                                                className="w-full h-11 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                </svg>
+                                                67,953 Offers
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Third Row - 2 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Seller Type"
+                                            value={selectedSellerType}
+                                            options={[
+                                                'Private',
+                                                'Dealers'
+                                            ]}
+                                            onChange={(e) => setSelectedSellerType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Type of structure"
+                                            value={selectedStructureType}
+                                            options={[
+                                                'Estate (21,408)',
+                                                'SUV / Off-Road Vehicle (59,529)',
+                                                'Limousine (29,461)',
+                                                'Cabriolet (8,795)',
+                                                'Coupé (8,451)',
+                                                'Small car (16,945)',
+                                                'Pick-up (1,391)',
+                                                'Compact van / minivan (9,237)',
+                                                'Bus (1,581)'
+                                            ]}
+                                            optionIcons={{
+                                                'Estate (21,408)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 11l1-2h16l1 2v5H3v-5z',
+                                                'SUV / Off-Road Vehicle (59,529)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 10l2-3h16l2 3v6H2v-6z',
+                                                'Limousine (29,461)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 12l2-3h16l2 3v4H2v-4z',
+                                                'Cabriolet (8,795)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM5 13l1-2h12l1 2v3H5v-3z',
+                                                'Coupé (8,451)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM6 13l2-3h8l2 3v3H6v-3z',
+                                                'Small car (16,945)': 'M6 18a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2zM7 14l1-2h8l1 2v2H7v-2z',
+                                                'Pick-up (1,391)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 12h8v4H3v-4zm9 0h9v4h-9v-4z',
+                                                'Compact van / minivan (9,237)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 10h18v6H3v-6zM4 10V8h16v2',
+                                                'Bus (1,581)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 8h18v8H3V8zM6 8v8m6-8v8m6-8v8'
+                                            }}
+                                            onChange={(e) => setSelectedStructureType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Reset and More Filters - Right Aligned */}
+                                    <div className="flex items-center justify-end gap-4">
+                                        <button
+                                            onClick={handleReset}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Reset
+                                        </button>
+                                        <button
+                                            onClick={() => navigate('/advanced-search')}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                            </svg>
+                                            More filters
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Truck Filters */}
+                            {activeVehicleType === 'truck' && (
+                                <>
+                                    {/* Same as car filters */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <BrandSelector
+                                            label="Make and Model"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Price"
+                                            value={selectedPriceType}
+                                            options={['Purchase price', 'Leasing rate']}
+                                            nestedOptions={{
+                                                'Purchase price': priceOptions.map(price => `CHF ${price}`),
+                                                'Leasing rate': ['CHF 100/month', 'CHF 200/month', 'CHF 300/month', 'CHF 400/month', 'CHF 500/month', 'CHF 600/month', 'CHF 700/month', 'CHF 800/month', 'CHF 900/month', 'CHF 1,000/month', 'CHF 1,500/month', 'CHF 2,000/month', 'CHF 2,500/month', 'CHF 3,000/month']
+                                            }}
+                                            onChange={(e) => {
+                                                setSelectedPriceType(e.target.value);
+                                                setSelectedPrice(e.target.value);
+                                            }}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Year"
+                                            value={selectedYear}
+                                            options={Array.from({ length: 2026 - 1900 + 1 }, (_, i) => (2026 - i).toString())}
+                                            onChange={(e) => setSelectedYear(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Mileage"
+                                            value={selectedMileage}
+                                            options={[
+                                                '5,000 km', '10,000 km', '20,000 km', '30,000 km', '40,000 km', '50,000 km',
+                                                '60,000 km', '70,000 km', '80,000 km', '90,000 km', '100,000 km', '125,000 km',
+                                                '150,000 km', '175,000 km', '200,000 km', '250,000 km', '300,000 km', '400,000 km'
+                                            ]}
+                                            onChange={(e) => setSelectedMileage(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Condition"
+                                            value={selectedCondition}
+                                            options={[
+                                                'New (39,641)',
+                                                'Used (115,558)',
+                                                'Classic cars (1,631)'
+                                            ]}
+                                            nestedOptions={{
+                                                'New (39,641)': [
+                                                    'New vehicle (26,413)',
+                                                    'Demonstration model (10,207)',
+                                                    'New vehicle with one-day registration (3,021)'
+                                                ]
+                                            }}
+                                            onChange={(e) => setSelectedCondition(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="MFK & Warranty"
+                                            value={selectedMfkWarranty}
+                                            options={[
+                                                'From MFK (113,219)',
+                                                'With warranty (107,977)'
+                                            ]}
+                                            onChange={(e) => setSelectedMfkWarranty(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Accident vehicle"
+                                            value={selectedAccidentVehicle}
+                                            options={[
+                                                'Accident vehicle (779)',
+                                                'No accident vehicle (156,049)'
+                                            ]}
+                                            onChange={(e) => setSelectedAccidentVehicle(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <div className="flex items-end">
+                                            <button
+                                                onClick={handleSearch}
+                                                className="w-full h-11 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                </svg>
+                                                67,953 Offers
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Seller Type"
+                                            value={selectedSellerType}
+                                            options={[
+                                                'Private',
+                                                'Dealers'
+                                            ]}
+                                            onChange={(e) => setSelectedSellerType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Type of structure"
+                                            value={selectedStructureType}
+                                            options={[
+                                                'Estate (21,408)',
+                                                'SUV / Off-Road Vehicle (59,529)',
+                                                'Limousine (29,461)',
+                                                'Cabriolet (8,795)',
+                                                'Coupé (8,451)',
+                                                'Small car (16,945)',
+                                                'Pick-up (1,391)',
+                                                'Compact van / minivan (9,237)',
+                                                'Bus (1,581)'
+                                            ]}
+                                            optionIcons={{
+                                                'Estate (21,408)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 11l1-2h16l1 2v5H3v-5z',
+                                                'SUV / Off-Road Vehicle (59,529)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 10l2-3h16l2 3v6H2v-6z',
+                                                'Limousine (29,461)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 12l2-3h16l2 3v4H2v-4z',
+                                                'Cabriolet (8,795)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM5 13l1-2h12l1 2v3H5v-3z',
+                                                'Coupé (8,451)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM6 13l2-3h8l2 3v3H6v-3z',
+                                                'Small car (16,945)': 'M6 18a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2zM7 14l1-2h8l1 2v2H7v-2z',
+                                                'Pick-up (1,391)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 12h8v4H3v-4zm9 0h9v4h-9v-4z',
+                                                'Compact van / minivan (9,237)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 10h18v6H3v-6zM4 10V8h16v2',
+                                                'Bus (1,581)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 8h18v8H3V8zM6 8v8m6-8v8m6-8v8'
+                                            }}
+                                            onChange={(e) => setSelectedStructureType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center justify-end gap-4">
+                                        <button
+                                            onClick={handleReset}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Reset
+                                        </button>
+                                        <button
+                                            onClick={() => navigate('/advanced-search')}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                            </svg>
+                                            More filters
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Motorcycle Filters */}
+                            {activeVehicleType === 'motorcycle' && (
+                                <>
+                                    {/* Top Row - 4 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <BrandSelector
+                                            label="Make and Model"
+                                            value={selectedCategory}
+                                            onChange={(e) => setSelectedCategory(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Price"
+                                            value={selectedPriceType}
+                                            options={['Purchase price', 'Leasing rate']}
+                                            nestedOptions={{
+                                                'Purchase price': priceOptions.map(price => `CHF ${price}`),
+                                                'Leasing rate': ['CHF 100/month', 'CHF 200/month', 'CHF 300/month', 'CHF 400/month', 'CHF 500/month', 'CHF 600/month', 'CHF 700/month', 'CHF 800/month', 'CHF 900/month', 'CHF 1,000/month', 'CHF 1,500/month', 'CHF 2,000/month', 'CHF 2,500/month', 'CHF 3,000/month']
+                                            }}
+                                            onChange={(e) => {
+                                                setSelectedPriceType(e.target.value);
+                                                setSelectedPrice(e.target.value);
+                                            }}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Year"
+                                            value={selectedYear}
+                                            options={Array.from({ length: 2026 - 1900 + 1 }, (_, i) => (2026 - i).toString())}
+                                            onChange={(e) => setSelectedYear(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Mileage"
+                                            value={selectedMileage}
+                                            options={[
+                                                '5,000 km', '10,000 km', '20,000 km', '30,000 km', '40,000 km', '50,000 km',
+                                                '60,000 km', '70,000 km', '80,000 km', '90,000 km', '100,000 km', '125,000 km',
+                                                '150,000 km', '175,000 km', '200,000 km', '250,000 km', '300,000 km', '400,000 km'
+                                            ]}
+                                            onChange={(e) => setSelectedMileage(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Bottom Row - 3 Dropdowns + Search Button */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Condition"
+                                            value={selectedCondition}
+                                            options={[
+                                                'New (39,641)',
+                                                'Used (115,558)',
+                                                'Classic cars (1,631)'
+                                            ]}
+                                            nestedOptions={{
+                                                'New (39,641)': [
+                                                    'New vehicle (26,413)',
+                                                    'Demonstration model (10,207)',
+                                                    'New vehicle with one-day registration (3,021)'
+                                                ]
+                                            }}
+                                            onChange={(e) => setSelectedCondition(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="MFK & Warranty"
+                                            value={selectedMfkWarranty}
+                                            options={[
+                                                'From MFK (113,219)',
+                                                'With warranty (107,977)'
+                                            ]}
+                                            onChange={(e) => setSelectedMfkWarranty(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Accident vehicle"
+                                            value={selectedAccidentVehicle}
+                                            options={[
+                                                'Accident vehicle (779)',
+                                                'No accident vehicle (156,049)'
+                                            ]}
+                                            onChange={(e) => setSelectedAccidentVehicle(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <div className="flex items-end">
+                                            <button
+                                                onClick={handleSearch}
+                                                className="w-full h-11 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                </svg>
+                                                67,953 Offers
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Third Row - 2 Dropdowns */}
+                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+                                        <CustomSelect
+                                            label="Seller Type"
+                                            value={selectedSellerType}
+                                            options={[
+                                                'Private',
+                                                'Dealers'
+                                            ]}
+                                            onChange={(e) => setSelectedSellerType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+
+                                        <CustomSelect
+                                            label="Type of structure"
+                                            value={selectedStructureType}
+                                            options={[
+                                                'Estate (21,408)',
+                                                'SUV / Off-Road Vehicle (59,529)',
+                                                'Limousine (29,461)',
+                                                'Cabriolet (8,795)',
+                                                'Coupé (8,451)',
+                                                'Small car (16,945)',
+                                                'Pick-up (1,391)',
+                                                'Compact van / minivan (9,237)',
+                                                'Bus (1,581)'
+                                            ]}
+                                            optionIcons={{
+                                                'Estate (21,408)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 11l1-2h16l1 2v5H3v-5z',
+                                                'SUV / Off-Road Vehicle (59,529)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 10l2-3h16l2 3v6H2v-6z',
+                                                'Limousine (29,461)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM2 12l2-3h16l2 3v4H2v-4z',
+                                                'Cabriolet (8,795)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM5 13l1-2h12l1 2v3H5v-3z',
+                                                'Coupé (8,451)': 'M5 18a1 1 0 100-2 1 1 0 000 2zm14 0a1 1 0 100-2 1 1 0 000 2zM6 13l2-3h8l2 3v3H6v-3z',
+                                                'Small car (16,945)': 'M6 18a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2zM7 14l1-2h8l1 2v2H7v-2z',
+                                                'Pick-up (1,391)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 12h8v4H3v-4zm9 0h9v4h-9v-4z',
+                                                'Compact van / minivan (9,237)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 10h18v6H3v-6zM4 10V8h16v2',
+                                                'Bus (1,581)': 'M4 18a1 1 0 100-2 1 1 0 000 2zm16 0a1 1 0 100-2 1 1 0 000 2zM3 8h18v8H3V8zM6 8v8m6-8v8m6-8v8'
+                                            }}
+                                            onChange={(e) => setSelectedStructureType(e.target.value)}
+                                            placeholder="Any"
+                                        />
+                                    </div>
+
+                                    {/* Reset and More Filters - Right Aligned */}
+                                    <div className="flex items-center justify-end gap-4">
+                                        <button
+                                            onClick={handleReset}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            Reset
+                                        </button>
+                                        <button
+                                            onClick={() => setShowMoreFilters(!showMoreFilters)}
+                                            className="flex items-center justify-center gap-2 text-gray-700 font-medium hover:text-primary-600 transition-colors cursor-pointer"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                            </svg>
+                                            More filters
+                                        </button>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Vehicle Categories */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h3 className="text-3xl font-bold text-gray-900 mb-8">{t('home.categories.title')}</h3>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="text-center mb-8">
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{t('home.categories.title')}</h3>
+                    <p className="text-gray-500 text-base">Find the perfect body type for your lifestyle</p>
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     {vehicleCategories.map((category, index) => (
                         <button
                             key={index}
-                            className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-200 border-2 border-transparent hover:border-primary-500 group"
+                            className="bg-white rounded-xl p-3 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-500 group overflow-hidden cursor-pointer"
                         >
                             <div className="flex flex-col items-center text-center gap-3">
-                                <div className="bg-primary-50 group-hover:bg-primary-500 p-4 rounded-full transition-colors">
-                                    <svg className="w-8 h-8 text-primary-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={category.icon} />
-                                    </svg>
+                                <div className="w-full aspect-square relative rounded-lg overflow-hidden mb-1">
+                                    <img
+                                        src={category.image}
+                                        alt={category.name}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-primary-900/10 group-hover:bg-transparent transition-colors"></div>
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-gray-900">{category.name}</p>
-                                    <p className="text-sm text-gray-500">{category.count}</p>
+                                    <p className="font-bold text-gray-900 text-base group-hover:text-primary-600 transition-colors">{category.name}</p>
+                                    <p className="text-[10px] font-semibold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full mt-0.5 inline-block">{category.count} Ads</p>
                                 </div>
                             </div>
                         </button>
@@ -416,10 +1265,10 @@ const Home = () => {
             </div>
 
             {/* Featured Vehicles */}
-            <div className="bg-white py-16 clip-path-slant-inv">
+            <div className="bg-white py-12 clip-path-slant-inv">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center mb-8">
-                        <h3 className="text-3xl font-bold text-gray-900">Featured Vehicles</h3>
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="text-2xl font-bold text-gray-900">Featured Vehicles</h3>
                         <a href="#" className="text-primary-600 hover:text-primary-700 font-medium">
                             View All →
                         </a>
@@ -472,7 +1321,7 @@ const Home = () => {
             </div>
 
             {/* Footer */}
-            <footer className="bg-gray-900 text-white py-12 mt-12">
+            <footer className="bg-gray-900 text-white py-8 mt-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div>
