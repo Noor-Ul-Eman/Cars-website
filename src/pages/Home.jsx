@@ -179,12 +179,22 @@ const Home = () => {
     }, [placeholder, isDeleting, isFocused, loopNum, typingSpeed]);
 
     const vehicleCategories = [
-        { name: t('home.categories.suv'), image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=200&auto=format&fit=crop', count: '125K+' },
-        { name: t('home.categories.sedan'), image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=200&auto=format&fit=crop', count: '85K+' },
-        { name: t('home.categories.hatchback'), image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=200&auto=format&fit=crop', count: '65K+' },
-        { name: t('home.categories.luxury'), image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=200&auto=format&fit=crop', count: '45K+' },
-        { name: t('home.categories.electric'), image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=200&auto=format&fit=crop', count: '35K+' },
-        { name: t('home.categories.convertible'), image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=200&auto=format&fit=crop', count: '12K+' },
+        { name: t('home.categories.suv') === 'home.categories.suv' ? 'SUV' : t('home.categories.suv'), image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=500&auto=format&fit=crop', count: '125K+' },
+        { name: t('home.categories.sedan') === 'home.categories.sedan' ? 'Sedan' : t('home.categories.sedan'), image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500&auto=format&fit=crop', count: '85K+' },
+        { name: t('home.categories.hatchback') === 'home.categories.hatchback' ? 'Hatchback' : t('home.categories.hatchback'), image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=500&auto=format&fit=crop', count: '65K+' },
+        { name: t('home.categories.luxury') === 'home.categories.luxury' ? 'Luxury' : t('home.categories.luxury'), image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&auto=format&fit=crop', count: '45K+' },
+        { name: t('home.categories.electric') === 'home.categories.electric' ? 'Electric' : t('home.categories.electric'), image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=500&auto=format&fit=crop', count: '35K+' },
+        { name: t('home.categories.convertible') === 'home.categories.convertible' ? 'Convertible' : t('home.categories.convertible'), image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=500&auto=format&fit=crop', count: '12K+' },
+        { name: t('home.categories.sports') === 'home.categories.sports' ? 'Sports' : t('home.categories.sports'), image: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500&auto=format&fit=crop', count: '24K+' },
+        { name: t('home.categories.pickup') === 'home.categories.pickup' ? 'Pickup Truck' : t('home.categories.pickup'), image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=500&auto=format&fit=crop', count: '18K+' },
+        { name: t('home.categories.van') === 'home.categories.van' ? 'Van / Minivan' : t('home.categories.van'), image: 'https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?w=500&auto=format&fit=crop', count: '15K+' },
+        { name: t('home.categories.coupe') === 'home.categories.coupe' ? 'Coupe' : t('home.categories.coupe'), image: 'https://images.unsplash.com/photo-1580414057403-c5f451f30e1c?w=500&auto=format&fit=crop', count: '30K+' },
+        { name: t('home.categories.wagon') === 'home.categories.wagon' ? 'Station Wagon' : t('home.categories.wagon'), image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=500&auto=format&fit=crop', count: '28K+' },
+        { name: t('home.categories.crossover') === 'home.categories.crossover' ? 'Crossover' : t('home.categories.crossover'), image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=500&auto=format&fit=crop', count: '55K+' },
+        { name: t('home.categories.classic') === 'home.categories.classic' ? 'Classic Cars' : t('home.categories.classic'), image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&auto=format&fit=crop', count: '8K+' },
+        { name: t('home.categories.offroad') === 'home.categories.offroad' ? 'Off-Road' : t('home.categories.offroad'), image: 'https://images.unsplash.com/photo-1533558701576-23c65e0272fb?w=500&auto=format&fit=crop', count: '21K+' },
+        { name: t('home.categories.hybrid') === 'home.categories.hybrid' ? 'Hybrid' : t('home.categories.hybrid'), image: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=500&auto=format&fit=crop', count: '42K+' },
+        { name: t('home.categories.supercar') === 'home.categories.supercar' ? 'Supercar' : t('home.categories.supercar'), image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=500&auto=format&fit=crop', count: '5K+' },
     ];
 
     const featuredCars = [
@@ -1234,33 +1244,39 @@ const Home = () => {
             </div>
 
             {/* Vehicle Categories */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="text-center mb-8">
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{t('home.categories.title')}</h3>
-                    <p className="text-gray-500 text-base">Find the perfect body type for your lifestyle</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {vehicleCategories.map((category, index) => (
-                        <button
-                            key={index}
-                            className="bg-white rounded-xl p-3 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-500 group overflow-hidden cursor-pointer"
-                        >
-                            <div className="flex flex-col items-center text-center gap-3">
-                                <div className="w-full aspect-square relative rounded-lg overflow-hidden mb-1">
-                                    <img
-                                        src={category.image}
-                                        alt={category.name}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    <div className="absolute inset-0 bg-primary-900/10 group-hover:bg-transparent transition-colors"></div>
-                                </div>
-                                <div>
-                                    <p className="font-bold text-gray-900 text-base group-hover:text-primary-600 transition-colors">{category.name}</p>
-                                    <p className="text-[10px] font-semibold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full mt-0.5 inline-block">{category.count} Ads</p>
-                                </div>
-                            </div>
-                        </button>
-                    ))}
+            <div className="bg-[#F3F5F9] pb-16">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8">
+                        <div className="text-center mb-8">
+                            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{t('home.categories.title') === 'home.categories.title' ? 'Browse by Category' : t('home.categories.title')}</h3>
+                            <p className="text-gray-500 text-base">Find the perfect body type for your lifestyle</p>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
+                            {vehicleCategories.map((category, index) => (
+                                <button
+                                    key={index}
+                                    className="bg-gray-50 rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary-500 group overflow-hidden cursor-pointer relative"
+                                >
+                                    <div className="flex flex-col items-center text-center gap-4">
+                                        <div className="w-full aspect-video relative rounded-xl overflow-hidden mb-1">
+                                            <img
+                                                src={category.image}
+                                                alt={category.name}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-gray-900 text-lg group-hover:text-primary-600 transition-colors">{category.name}</p>
+                                            <p className="text-xs font-semibold text-primary-600 bg-primary-100 px-3 py-1 rounded-full mt-2 inline-block">
+                                                {category.count} Ads
+                                            </p>
+                                        </div>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
 
